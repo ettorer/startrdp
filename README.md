@@ -4,7 +4,7 @@ This little simple tool allows to start mstrc performing credentials autologin
 
 ## Usage:
 
-startrdp /u:<< username >> /p:<< password >> [/d:<< domain >>] /v:<< hostname >>
+startrdp /u:< username > /p:< password > [/d:< domain >] /v:< hostname >
 
 ## Built With
 
