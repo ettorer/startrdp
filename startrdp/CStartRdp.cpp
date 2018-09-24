@@ -43,6 +43,9 @@ BOOL CStartRdp::ParseCommandLine(int argc, char *argv[])
 BOOL CStartRdp::AddCredentials()
 {
 	char TargetName[MAX_PATH];
+	std::string user = m_user;
+	if (m_domain.size())
+		user = m_domain + "\\" + m_user;
 	sprintf_s(TargetName, "TERMSRV/%s", m_host.c_str());
 	DWORD cbCreds = sizeof(WCHAR)*(1 + m_password.size());
 	WCHAR szPassword[MAX_PATH];
@@ -55,7 +58,7 @@ BOOL CStartRdp::AddCredentials()
 	cred.CredentialBlobSize = cbCreds;
 	cred.CredentialBlob = (LPBYTE)szPassword;
 	cred.Persist = CRED_PERSIST_LOCAL_MACHINE;
-	cred.UserName = (LPSTR)m_user.c_str();
+	cred.UserName = (LPSTR)user.c_str();
 
 	return ::CredWriteA(&cred, 0);
 }
